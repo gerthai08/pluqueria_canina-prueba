@@ -9,13 +9,19 @@ import javax.swing.JOptionPane;
 public class ModificarDatos extends javax.swing.JFrame {
 
     Controladora control = null;
+    //Hacemos una variable global que se encarga de recibir el valor
     int num_cliente;
     Mascota masco;
     
+    //contructor
+    //tenemos que cambiar el contructor para que resiba un entero 
     public ModificarDatos(int num_cliente) {
+        //llama a la controladora de al logica
         control = new Controladora();
-        this.num_cliente=num_cliente;
+        //this.num_cliente=num_cliente;
+        //crear la interfaz grafica
         initComponents();
+        //carga los datos a partir del numero de cliente
         cargarDatos(num_cliente);
     }
 
@@ -47,6 +53,8 @@ public class ModificarDatos extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btnGuardar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        btnAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -216,17 +224,42 @@ public class ModificarDatos extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
+        btnAtras.setText("Atras");
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(136, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(304, 304, 304)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -237,8 +270,9 @@ public class ModificarDatos extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -293,6 +327,8 @@ public class ModificarDatos extends javax.swing.JFrame {
         String nomDuenio = txtNomDuenio.getText();
         String celDuenio = txtCelDuenio.getText();
         
+        //con masco en global, podemos pasar como parametro los valores de la mascota vieja y que asegura?
+        //asegura tener la posicion en memoria que corresponda del objeto que corresponda
         control.modificarMascota(masco, nombreMasco,raza,color,observaciones,alergico, atencionEspecial,nomDuenio,celDuenio);
         
         //mensaje de que todo salió ok
@@ -308,7 +344,15 @@ public class ModificarDatos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        VerDatos pantalla = new VerDatos();
+        pantalla.setVisible(true);
+        pantalla.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btnAtrasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JComboBox<String> cmbAlergico;
@@ -326,6 +370,7 @@ public class ModificarDatos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtCelDuenio;
     private javax.swing.JTextField txtColor;
@@ -335,7 +380,9 @@ public class ModificarDatos extends javax.swing.JFrame {
     private javax.swing.JTextField txtRaza;
     // End of variables declaration//GEN-END:variables
 
+    //llama a la llogica para que me traiga la mascota que tiene ese numero de cliente
     private void cargarDatos(int num_cliente) {
+        
         this.masco = control.traerMascota(num_cliente);
         
         txtNombre.setText(masco.getNombre());

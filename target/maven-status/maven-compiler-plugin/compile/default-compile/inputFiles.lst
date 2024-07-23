@@ -6,6 +6,7 @@ D:\Programacion\PeluqueriaCanina\src\main\java\com\mycompany\peluqueriacanina\pe
 D:\Programacion\PeluqueriaCanina\src\main\java\com\mycompany\peluqueriacanina\persistencia\exceptions\IllegalOrphanException.java
 D:\Programacion\PeluqueriaCanina\src\main\java\com\mycompany\peluqueriacanina\persistencia\exceptions\NonexistentEntityException.java
 D:\Programacion\PeluqueriaCanina\src\main\java\com\mycompany\peluqueriacanina\persistencia\exceptions\PreexistingEntityException.java
+D:\Programacion\PeluqueriaCanina\src\main\java\com\mycompany\peluqueriacanina\igu\ModificarDatos.java
 D:\Programacion\PeluqueriaCanina\src\main\java\com\mycompany\peluqueriacanina\igu\CargaDatos.java
 D:\Programacion\PeluqueriaCanina\src\main\java\com\mycompany\peluqueriacanina\igu\VerDatos.java
 D:\Programacion\PeluqueriaCanina\src\main\java\com\mycompany\peluqueriacanina\logica\Duenio.java

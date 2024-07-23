@@ -42,7 +42,9 @@ public class Controladora {
         return controlPersis.traerMascota(num_cliente);
     }
 
+    //a masco ,que es el objeto original sin modificar, asignarle los nuevos valores que estoy teniendo acá 
     public void modificarMascota(Mascota masco, String nombreMasco, String raza, String color, String observaciones, String alergico, String atencionEspecial, String nomDuenio, String celDuenio) {
+        //voy seteando cada uno de los valores
         masco.setNombre(nombreMasco);
         masco.setRaza(raza);
         masco.setColor(color);
@@ -51,6 +53,7 @@ public class Controladora {
         masco.setAlergico(alergico);
         
         //Modifico la mascota
+        //le paso el objeto masco con los nuevos valores asignados 
         controlPersis.modificarMascota(masco);
         
         //setteo nuevos valores del dueño

@@ -9,9 +9,12 @@ import javax.swing.table.DefaultTableModel;
 
 public class VerDatos extends javax.swing.JFrame {
 
+    //siempre que tengas una variable global que sea una clase trata de incializarla de alguna manera con JFrame
     Controladora control = null;
     
     public VerDatos() {
+        //cuando se cree una pestaña de ver datos que cree una nueva instancia
+        //cuando se abra o se cree una instancia ver datos me va a crear la instancia de la controladora 
         control = new Controladora();
         initComponents();
     }
@@ -28,6 +31,7 @@ public class VerDatos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        btnAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -75,7 +79,7 @@ public class VerDatos extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         btnEditar.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
@@ -91,6 +95,14 @@ public class VerDatos extends javax.swing.JFrame {
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnAtras.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        btnAtras.setText("Atras");
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
             }
         });
 
@@ -110,7 +122,10 @@ public class VerDatos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))))
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -128,7 +143,9 @@ public class VerDatos extends javax.swing.JFrame {
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(436, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -152,9 +169,13 @@ public class VerDatos extends javax.swing.JFrame {
         //get selectedRow trae la fila que haya seleccionado
         if(tablaMascota.getRowCount() > 0){
             if(tablaMascota.getSelectedRow() != -1){
-                 //obtengo la id de la mascota a eliminar
+                 //obtengo la id de la mascota a editar 
+                 //al ser todas strings, parsear, convertir lo que tengamos a objetos
+                //traeme y asigname(getValueAt) un numero de cliente, el valor en la tablaMascota que este ubicado en la columna 0 de la fila seleccionada(selectedRow)
+                //convertilo a string y luego convertilo a int para guardarlo acá
                 int num_cliente  = Integer.parseInt(String.valueOf(tablaMascota.getValueAt(tablaMascota.getSelectedRow(), 0)));              
             
+                //Le tenemos que pasar el numero de cliente al constructor, para saber a quien tiene que editar
                 ModificarDatos pantallaModif = new ModificarDatos(num_cliente);
                 pantallaModif.setVisible(true);
                 pantallaModif.setLocationRelativeTo(null);
@@ -180,8 +201,12 @@ public class VerDatos extends javax.swing.JFrame {
         //getRowCout() contar la cantidad de filas que hay en la tabla
         //get selectedRow trae la fila que haya seleccionado
         if(tablaMascota.getRowCount() > 0){
+            //controlo que se haya seleccionado a una mascota
             if(tablaMascota.getSelectedRow() != -1){
                 //obtengo la id de la mascota a eliminar
+                //al ser todas strings, parsear, convertir lo que tengamos a objetos
+                //traeme y asigname(getValueAt) un numero de cliente, el valor en la tablaMascota que este ubicado en la columna 0 de la fila seleccionada(selectedRow)
+                //convertilo a string y luego convertilo a int para guardarlo acá
                 int num_cliente  = Integer.parseInt(String.valueOf(tablaMascota.getValueAt(tablaMascota.getSelectedRow(), 0)));
                 
                 //llamamos al metodo borrar
@@ -189,6 +214,7 @@ public class VerDatos extends javax.swing.JFrame {
                 
                 //aviso al usuario que borró correctamente
                 mostrarMensaje("mascota eliminada correctamente","Info", "Borrado de Mascota" );
+                //Actualizar
                 cargarTabla();
                 
             }
@@ -204,13 +230,16 @@ public class VerDatos extends javax.swing.JFrame {
 
     
     public void mostrarMensaje(String mensaje, String tipo, String titulo){
+        //Mensaje que aparecerá
         JOptionPane optionPane = new JOptionPane(mensaje);
+        //tipo de asignacion de mensaje 
         if(tipo.equals("Info")){
         optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
         }else 
             if(tipo.equals("Error")){
             optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);          
         }
+        //titulo del mensaje 
         JDialog dialog = optionPane.createDialog(titulo);
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
@@ -219,12 +248,21 @@ public class VerDatos extends javax.swing.JFrame {
     
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         
+        //llama al metodo
         cargarTabla();
         
     }//GEN-LAST:event_formWindowOpened
 
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        Principal pantalla = new Principal();
+        pantalla.setVisible(true);
+        pantalla.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btnAtrasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel jLabel1;
@@ -237,9 +275,10 @@ public class VerDatos extends javax.swing.JFrame {
 
     private void cargarTabla() {
         //Definir el modelo que queremos que tenga la tabla
+        //clase especial que permite establecer un modelo para nuestra tabla, setear y agregar cosas, etc
         DefaultTableModel modeloTabla = new DefaultTableModel(){
             
-            //filas y columnas no editables
+            //filas y columnas no editables y fijas
             @Override
             public boolean isCellEditable (int row, int column) {
                 return false;
@@ -252,15 +291,23 @@ public class VerDatos extends javax.swing.JFrame {
             modeloTabla.setColumnIdentifiers(titulos);
         
             //Carga de datos desde la base de datos
+            //cada vez que traigamos las macotas vamos a ir guradandolas en la lista y vamos a ir recorriendo la lista y a cada elemento 
+            //que este dentro de la lista vamos a colocarla en la lista 
             List <Mascota> listaMascotas = control.traerMascotas();
             
-            //recorrer la lista y mostrar cada uno de los elementos en la tabla 
+            //recorrer la lista y mostrar cada uno de los elementos en la tabla
+            //primero preguntar si la lista es null o no 
             if (listaMascotas!=null){
+                //si es "distinto de null, carga cada uno de los datos"
+                //por cada mascota de lista mascotas cargamelas en la tabla 
                 for (Mascota masco : listaMascotas){
+                    //creamos array de tipo objeto (porque cada mascota tiene muchos tipos de datos)
+                    //elegimos los elementos de cada una de las partes desde la logica "mascota"
+                    //object abarca todos los tipos de datos
                     Object[] objeto = {masco.getNum_cliente(), masco.getNombre(), masco.getColor(), masco.getRaza(), masco.getAlergico(), masco.getAtencion_especial(), 
                         masco.getUnDuenio().getNombre(), masco.getUnDuenio().getCelDuenio()};
                 
-                   
+                    //a mi tabla, "agregar fila" 
                     modeloTabla.addRow(objeto);
                 }
             }

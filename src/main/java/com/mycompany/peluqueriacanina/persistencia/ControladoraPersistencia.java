@@ -22,6 +22,7 @@ public class ControladoraPersistencia {
 
     public List<Mascota> traerMascotas() {
 
+        //busca todos los registros que tenga la tabla mascota y nos lo trae y asigna todo lo que hay que asignar
         return mascoJpa.findMascotaEntities();
         
     }
